@@ -1,0 +1,22 @@
+﻿greenandcoop_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: postgres
+      password: postgrespassword
+      port: 5432
+      dbname: greenandcoop_db
+      schema: public
+      threads: 4
+
+    prod:
+      type: postgres
+      host: "{{ env_var('DBT_PROD_DB_HOST') }}"
+      user: "{{ env_var('DBT_PROD_DB_USER') }}"
+      password: "{{ env_var('DBT_PROD_DB_PASSWORD') }}"
+      port: 5432
+      dbname: "{{ env_var('DBT_PROD_DB_NAME') }}"
+      schema: public
+      threads: 4
