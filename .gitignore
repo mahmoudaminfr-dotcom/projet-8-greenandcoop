@@ -1,0 +1,35 @@
+﻿# Environnements virtuels
+venv/
+.venv/
+env/
+
+# Fichiers binaires exécutables
+*.exe
+abctl.exe
+
+# Fichiers de logs
+*.log
+logs/
+dbt/logs/
+dbt/greenandcoop_dbt/logs/
+
+# Artefacts de compilation dbt
+target/
+dbt/greenandcoop_dbt/target/
+dbt_packages/
+dbt/greenandcoop_dbt/dbt_packages/
+
+# Variables d'environnement & Secrets
+.env
+*.env
+profiles.yml
+
+# Documents internes et consignes pédagogiques
+sujet.md
+FAE.md
+
+# Caches Python et OS
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db

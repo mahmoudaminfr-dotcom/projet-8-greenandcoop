@@ -1,0 +1,14 @@
+﻿version: 2
+
+sources:
+  - name: raw
+    database: greenandcoop_db
+    schema: raw
+    description: "Données météorologiques brutes ingérées par Airbyte"
+    tables:
+      - name: wu_la_madeleine_raw
+        description: "Relevés bruts Weather Underground - Station La Madeleine"
+      - name: wu_ichtegem_raw
+        description: "Relevés bruts Weather Underground - Station Ichtegem"
+      - name: infoclimat_raw
+        description: "Relevés bruts issus de l'API InfoClimat"
