@@ -1,0 +1,23 @@
+﻿FROM python:3.12-slim
+
+WORKDIR /usr/app/dbt
+
+RUN pip install --no-cache-dir dbt-core==1.12.4 dbt-postgres==1.11.0
+
+COPY dbt/greenandcoop_dbt/ .
+
+RUN mkdir -p /root/.dbt && echo "greenandcoop_dbt:" > /root/.dbt/profiles.yml && \
+    echo "  target: dev" >> /root/.dbt/profiles.yml && \
+    echo "  outputs:" >> /root/.dbt/profiles.yml && \
+    echo "    dev:" >> /root/.dbt/profiles.yml && \
+    echo "      type: postgres" >> /root/.dbt/profiles.yml && \
+    echo "      host: postgres" >> /root/.dbt/profiles.yml && \
+    echo "      user: postgres" >> /root/.dbt/profiles.yml && \
+    echo "      password: postgrespassword" >> /root/.dbt/profiles.yml && \
+    echo "      port: 5432" >> /root/.dbt/profiles.yml && \
+    echo "      dbname: greenandcoop_db" >> /root/.dbt/profiles.yml && \
+    echo "      schema: public" >> /root/.dbt/profiles.yml && \
+    echo "      threads: 4" >> /root/.dbt/profiles.yml
+
+ENTRYPOINT ["dbt"]
+CMD ["test", "--target", "dev"]
