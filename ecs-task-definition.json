@@ -1,0 +1,29 @@
+{
+  "family": "greenandcoop-dbt-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::753167245406:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "dbt-worker",
+      "image": "753167245406.dkr.ecr.eu-west-3.amazonaws.com/greenandcoop-dbt:latest",
+      "essential": true,
+      "entryPoint": ["sh", "-c"],
+      "command": [
+        "printf \"greenandcoop_dbt:\\n  target: prod\\n  outputs:\\n    prod:\\n      type: postgres\\n      host: greenandcoop-db.clu0g26cg1mz.eu-west-3.rds.amazonaws.com\\n      port: 5432\\n      user: postgres\\n      password: \\\"GreenPass2026!#\\\"\\n      dbname: greenandcoop_db\\n      schema: public\\n      threads: 4\\n\" \u003e /root/.dbt/profiles.yml \u0026\u0026 dbt run --target prod \u0026\u0026 dbt test --target prod"
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/greenandcoop-dbt",
+          "awslogs-region": "eu-west-3",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
